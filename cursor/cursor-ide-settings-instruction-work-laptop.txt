@@ -1,0 +1,111 @@
+-The following rules are for every codebase, exepct the Vue2 codebase with OOP style called Bouw7:
+
+-Before modifiying/creating new code check `vite.config` or `next.config` so u don't write `use client` in a Vite react codebase.
+-Always write and create files using a seperate of concerns style. Each function, wether its a server action or utillity should be it's own file which gets exported in the root of the folder through a index.ts file like so: export * from './function-name'.
+
+-For important files with core/business logic start it with jsdoc/docstrings via this pattern:
+/**
+ * @author Remco Stoeten
+ * @description This is the description of the component spanning over a maximum of two or three lines 
+ * @description This is the description of the component spanning over a maximum of two or three lines 
+ */
+
+export default function ActivityTimeline() {
+    return (
+        <div>
+            <h1>Activity Timeline</h1>
+        </div>
+    )
+}
+
+/**
+ * @example usage
+ * const data = {
+ *   releases: [{ published_at: '2021-01-01T00:00:00Z', ... }],
+ *   pullRequests: [{ merged_at: '2021-01-01T00:00:00Z', ... }],
+ *   issues: [{ created_at: '2021-01-01T00:00:00Z', ... }],
+ *   commits: [{ commit: { author: { date: '2021-01-01T00:00:00Z' } }, ... }]
+ * }
+ * return (
+ *   <ActivityTimeline data={data} onCommitSelect={(commit) => console.log(commit)} />
+ * )
+ */
+
+-Only use the example if it's not really clear from the complexity of the project. Make sure the example usage is at the bottom.
+
+-Always try to write agnostic code, E.g. if we use superbase as database provider we call it db,client or something like that, not -supabase.ts. Same goes with the business logic to make it clear and easy migratable to other services and providers.
+
+-We use this base pattern for all projects which is the followings tructure. As you can see havy on seperate of concerns
+
+``
+src/server (or src/api)
+src/server/db/index.ts
+src/server/db/schema.ts
+src/server/queries/index.ts
+src/serv er/queries/a-generic-querie.ts
+src/server/mutations/index.ts
+src/server/mutations/a-generic-mutation.ts
+src/server/models/index.ts
+src/server/models/a-generic-zod-model.ts
+
+src/comonents/ <--- one time use components and not feature specific.
+
+src/core
+src/core/types/xxx.d.ts
+src/core/config <--- site-config.ts and other configuration
+src/state <---- context and stores which are not feature specific.
+
+src/features/a-feature-name/components <--- feature specific
+src/features/a-feature-name/hooks/
+src/features/a-feature-name/utils/
+src/features/a-feature-name/server/ <---- feature specific models or schemas go here and. get exported to the index.ts in root dir
+
+src/shared/ <---- shared stuff goes here
+src/shared/components/ui/index.ts <--- exports all shadcn ui 
+src/shared/helpers/index.ts <----- cn/utils go here
+src/shared/hooks/index.ts
+src/shared/hooks/use-a -hook.ts
+
+src/services/
+src/service/feature.service.trs
+
+src/stylses/main.css
+
+```
+
+-Always write in Kebabcase, exepct if we're in the Vue2 codebase called "Bouw7". 
+
+-Always write functions, except if we're in the Vue2 codebase called "Bouw7". There we write OOP style with classes. 
+
+-Even services, SOLID style requests should be writeten in functions, exepct in Vue2 codebase called "Bouw7".
+
+-For entirely new features, large business logic or services that require explanation write mdx docs in docs in the root.
+
+-prefer types over interfaces
+
+-For purely types write `.d.ts` extension
+
+-Write functions in the following format:
+```typescript
+function ({prop,secondprop}) {
+    const logic = someelogic
+
+return (
+     <>
+....
+</>
+)
+}
+```
+
+Instead of 
+```typescript
+const x = () => {
+<>
+....
+</>
+)
+```
+
+-As package manager always use pnpm.
+

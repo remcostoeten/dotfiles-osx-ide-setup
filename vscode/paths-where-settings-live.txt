@@ -1,0 +1,6 @@
+Mac osx
+~/Library/Application Support/Cursor/User/settings.json
+
+
+Linux
+...? ~/.config/code or ~/Code...  
