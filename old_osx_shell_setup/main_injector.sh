@@ -6,11 +6,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Source all configuration files
-for file in "$HOME/development/dotfiles/init"/*.zsh; do
-    if [[ -f "$file" ]]; then
+if compgen -G "$HOME/development/dotfiles/init/*.zsh" > /dev/null; then
+    for file in "$HOME/development/dotfiles/init"/*.zsh; do
         source "$file"
-    fi
-done
+    done
+else
+    echo "No .zsh files found in $HOME/development/dotfiles/init/"
+fi
 
 # Source all plugin configurations
 if [[ -f "$HOME/development/dotfiles/plugins/plugins_injector.sh" ]]; then
