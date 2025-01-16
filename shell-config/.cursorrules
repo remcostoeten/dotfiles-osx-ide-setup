@@ -1,4 +1,4 @@
-Create a shell configuration architecture that includes the following components:
+# Generic MVP / Base setup for my shell configuration.
 
 1. **Main Injector Script (`main_injector.sh`)**:
     - Responsible for sourcing all individual injectors.
