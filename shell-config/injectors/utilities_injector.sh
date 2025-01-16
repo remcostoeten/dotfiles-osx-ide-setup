@@ -9,3 +9,4 @@ for file in "$DIR_TO_SOURCE"/*; do
         source "$file"
     fi
 done
+             
